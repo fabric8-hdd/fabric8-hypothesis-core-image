@@ -26,6 +26,8 @@ relocate_sources(){
     cp -r node_modules/hypothesis-core-image/cico_tests/* cico_tests/
     # copy constants.sh
     cp constants.sh .
+    # copy Makefile to here
+    cp node_modules/hypothesis-core-image/Makefile .
 }
 
 setup_env() {
