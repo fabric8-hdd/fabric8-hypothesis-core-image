@@ -1,26 +1,7 @@
 #!/bin/bash -ex
 
 . constants.sh
-
-prep_base() {
-    yum -y update
-    yum -y install yum-utils device-mapper-persistent-data lvm2 git wget
-}
-
-install_node() {
-    # install_node 9.3.0 5.6.0
-    local NODE_VERSION="${1}"
-    local NPM_VERSION="${2}"
-    wget --no-check-certificate https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64.tar.gz
-    tar --strip-components 1 -xzf node-v${NODE_VERSION}-linux-x64.tar.gz -C /usr/local/ \
-    npm install "npm@v${NPM_VERSION}" -g
-}
-
-install_docker() {
-    yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
-    yum -y install docker-ce
-    systemctl start docker
-}
+. cico_utils/setup_env.sh
 
 load_jenkins_vars() {
     if [ -e "jenkins-env" ]; then
@@ -32,8 +13,10 @@ load_jenkins_vars() {
     fi
 }
 
-install_app() {
-    make all
+install_docker() {
+    yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+    yum -y install docker-ce
+    systemctl start docker
 }
 
 prep_env() {

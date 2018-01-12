@@ -1,6 +1,6 @@
 #!/bin/bash
 
-. setup_utils.sh
+. cico_utils/setup_utils.sh
 . constants.sh
 
 run_tests(){
