@@ -1,6 +1,6 @@
 {
   "name": "hypothesis-core-image",
-  "version": "0.1",
+  "version": "0.0.1",
   "description": "Generic build scripts, Dockerfiles etc.. of Hypothesis Driven Development stack reside here",
   "repository": {
     "type": "git",
