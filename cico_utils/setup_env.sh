@@ -13,7 +13,7 @@ install_node() {
 }
 
 install_app() {
-    make all
+    npm install --production
 }
 
 relocate_sources(){
