@@ -29,7 +29,7 @@ prep_env() {
 }
 
 docker_login(){
-    push_registry=$(make get-registry)
+    push_registry=$(make get-push-registry)
     # login first
     if [ -n "${DEVSHIFT_USERNAME}" -a -n "${DEVSHIFT_PASSWORD}" ]; then
         docker login -u ${DEVSHIFT_USERNAME} -p ${DEVSHIFT_PASSWORD} ${push_registry}
