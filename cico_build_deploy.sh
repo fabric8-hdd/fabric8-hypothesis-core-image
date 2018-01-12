@@ -2,12 +2,13 @@
 
 set -x
 
-. utils/setup_utils.sh
+. cico_utils/setup_utils.sh
 . constants.sh
+. VERSION.sh
 
 setup() {
     prep_env
-    build_push_images -repo "${REPOSITORY}" -app-version 1 -test false
+    build_push_images -repo "${REPOSITORY}" -app-version "${APP_VERSION}" -test false
 }
 
 setup
