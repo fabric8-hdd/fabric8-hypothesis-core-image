@@ -13,7 +13,7 @@ install_node() {
 }
 
 install_app() {
-    npm install --production
+    npm install
 }
 
 relocate_sources(){
@@ -25,7 +25,7 @@ relocate_sources(){
     mkdir -p cico_tests
     cp -r node_modules/hypothesis-core-image/cico_tests/* cico_tests/
     # copy constants.sh
-    cp constants.sh .
+    cp node_modules/hypothesis-core-image/constants.sh .
     # copy Makefile to here
     cp node_modules/hypothesis-core-image/Makefile .
 }
