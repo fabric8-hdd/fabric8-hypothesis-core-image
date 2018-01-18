@@ -17,7 +17,9 @@ run_tests(){
 
     set -ex
 
-    build_push_images -repo "${REPOSITORY}-tests" -app-version 1 -test false -docker-file Dockerfile.tests -build-args $(make BUILD_ARG_NAME="CACHEBUST" BUILD_ARG_VALUE=${TEMP} get-formatted-build-arg)
+    . VERSION.sh
+
+    build_push_images -repo "${REPOSITORY}-tests" -app-version ${APP_VERSION}  -test false -docker-file Dockerfile.tests -build-args $(make BUILD_ARG_NAME="CACHEBUST" BUILD_ARG_VALUE=${TEMP} get-formatted-build-arg)
     docker_infra_test
 }
 
