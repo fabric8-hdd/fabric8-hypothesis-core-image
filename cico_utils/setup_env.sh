@@ -28,6 +28,9 @@ relocate_sources(){
     cp node_modules/hypothesis-core-image/constants.sh .
     # copy Makefile to here
     cp node_modules/hypothesis-core-image/Makefile .
+    # copy Dockerfile.app to here
+    cp node_modules/hypothesis-core-image/Dockerfile.app Dockerfile.app
+    cp node_modules/hypothesis-core-image/Dockerfile.tests Dockerfile.tests
 }
 
 setup_env() {
