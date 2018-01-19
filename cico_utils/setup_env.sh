@@ -8,7 +8,7 @@ install_node() {
     local NODE_VERSION="${1}"
     local NPM_VERSION="${2}"
     wget --no-check-certificate https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64.tar.gz
-    tar --strip-components 1 -xzf node-v${NODE_VERSION}-linux-x64.tar.gz -C /usr/local/ \
+    tar --strip-components 1 -xzf node-v${NODE_VERSION}-linux-x64.tar.gz -C /usr/local/
     npm install "npm@v${NPM_VERSION}" -g
 }
 
