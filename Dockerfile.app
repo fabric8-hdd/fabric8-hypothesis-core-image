@@ -1,6 +1,6 @@
-ARG VERSION="8.9.2"
+ARG NODE_VERSION="8.9.2"
 ARG NPM_VERSION="5.5.0"
-FROM registry.devshift.net/fabric8-hdd/nodejs:${VERSION}_npm_${NPM_VERSION}
+FROM registry.devshift.net/fabric8-hdd/nodejs:${NODE_VERSION}_npm_${NPM_VERSION}
 LABEL maintainer="Anmol Babu <anmolbudugutta@gmail.com>"
 
 # Setup App Dir
