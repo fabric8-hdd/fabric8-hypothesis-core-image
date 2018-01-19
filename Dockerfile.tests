@@ -8,7 +8,7 @@ LABEL maintainer="Anmol Babu <anmolbudugutta@gmail.com>"
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
-yum -y install git
+RUN yum -y install git
 
 # Install app dependencies
 ADD package.json ./package.json
