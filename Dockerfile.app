@@ -8,7 +8,7 @@ RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
 # Install git for npm to be able to pull dependencies from git
-yum -y install git
+RUN yum -y install git
 
 # Install app dependencies
 ADD package.json ./package.json
