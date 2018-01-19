@@ -4,6 +4,19 @@
 . constants.sh
 
 run_tests(){
+    local APP_PORT
+    while [[ $# -gt 0 ]]
+    do
+    key="$1"
+
+    case $key in
+        -port)
+        APP_PORT="$2" # To hold anything other than node_version and npm_version
+        shift # past argument
+        shift # past value
+        ;;
+    esac
+    done
     # run_tests nodejs
     prep_env
     local REPOSITORY=$1
@@ -17,9 +30,8 @@ run_tests(){
 
     set -ex
 
-    . VERSION.sh
-
-    build_push_images -repo "${REPOSITORY}-tests" -app-version ${APP_VERSION}  -test false -docker-file Dockerfile.tests -build-args $(make BUILD_ARG_NAME="CACHEBUST" BUILD_ARG_VALUE=${TEMP} get-formatted-build-arg)
+    BUILD_ARGS=$( format_build_args CACHEBUST=${TEMP} PORT=${APP_PORT} )
+    build_push_images -repo "${REPOSITORY}-tests" -app-version 1 -test false -docker-file Dockerfile.tests -build-args "${BUILD_ARGS}"
     docker_infra_test
 }
 

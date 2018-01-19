@@ -1,0 +1,51 @@
+ARG VERSION=8.9.2
+ARG NPM_VERSION=5.5.0
+
+FROM registry.devshift.net/fabric8-hdd/nodejs:${VERSION}_npm_${NPM_VERSION}
+LABEL maintainer="Anmol Babu <anmolbudugutta@gmail.com>"
+
+# Setup App Dir
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
+
+yum -y install git
+
+# Install app dependencies
+ADD package.json ./package.json
+ADD package-lock.json ./package-lock.json
+
+# Install app
+RUN npm install
+
+# Bundle app source
+ADD . .
+
+# Setup non-root user node
+RUN groupadd -r node \
+    && useradd -r -g node node
+
+# Switch to non-root user
+USER node
+
+ARG APP_PORT=9090
+
+#Injecting environment variable inside container
+ENV HDD_SUPERVISOR_PORT ${APP_PORT}
+
+# Expose port
+EXPOSE ${APP_PORT}
+
+# Hack to bust the cache. Refer to run_tests.sh file.
+ARG CACHEBUST=1
+
+#Running the tests
+RUN npm test
+
+#Add the infra test script
+ADD run_infra_tests.sh ./run_infra_tests.sh
+
+#Running the infra tests
+RUN . ./run_infra_tests.sh; run_infra_tests -node ${VERSION} -npm ${NPM_VERSION} -port ${PORT}
+
+# Start app
+CMD [ "npm", "start" ]
