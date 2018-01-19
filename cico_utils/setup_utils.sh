@@ -153,6 +153,7 @@ build_push_images() {
     local BUILD_ARGS
     local REPOSITORY
     local DOCKERFILE=Dockerfile
+    local DOCKERFILE_TEST=Dockerfile.tests
     local APP_VERSION
     local build_args
     local tag
@@ -180,6 +181,11 @@ build_push_images() {
         shift
         shift
         ;;
+        -docker-file-test)
+        DOCKERFILE_TEST="$2"
+        shift
+        shift
+        ;;
         -app-version)
         APP_VERSION="$2"
         shift
@@ -203,7 +209,7 @@ build_push_images() {
         build_args="${BUILD_ARGS} ${build_args}"
         # If testing enabled, build image only if tests pass
         if [ "$IS_TEST" == "yes" ]; then
-            test_image -repo "${REPOSITORY}" -tag "${tag}" -build-args "${build_args}"
+            test_image -repo "${REPOSITORY}" -tag "${tag}" -build-args "${build_args}" -docker-file ${DOCKERFILE_TEST}
             if [ $? -eq 0 ]; then
                 last_succesful_node_version=${node_version}
                 last_succesful_npm_version=${npm_version}
