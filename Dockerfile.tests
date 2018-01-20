@@ -30,7 +30,8 @@ USER node
 ARG APP_PORT=9090
 
 #Injecting environment variable inside container
-ENV HDD_SUPERVISOR_PORT ${APP_PORT}
+ARG APP_NAME
+ENV HDD_${APP_NAME}_PORT ${APP_PORT}
 
 # Expose port
 EXPOSE ${APP_PORT}
@@ -41,11 +42,9 @@ ARG CACHEBUST=1
 #Running the tests
 RUN npm test
 
-#Add the infra test script
-ADD run_infra_tests.sh ./run_infra_tests.sh
-
 #Running the infra tests
-RUN . ./run_infra_tests.sh; run_infra_tests -node ${VERSION} -npm ${NPM_VERSION} -port ${PORT}
+RUN . ./cico_tests/run_infra_tests.sh; run_infra_tests -node ${NODE_VERSION} -npm ${NPM_VERSION} -port ${APP_PORT}
 
 # Start app
 CMD [ "npm", "start" ]
+

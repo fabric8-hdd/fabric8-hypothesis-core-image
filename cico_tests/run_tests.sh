@@ -5,13 +5,20 @@
 
 run_tests(){
     local APP_PORT
+    local APP_NAME
     while [[ $# -gt 0 ]]
     do
     key="$1"
 
     case $key in
-        -port)
+        -app-port)
         APP_PORT="$2" # To hold anything other than node_version and npm_version
+        shift # past argument
+        shift # past value
+        ;;
+    case $key in
+        -app-name)
+        APP_NAME="$2" # To hold anything other than node_version and npm_version
         shift # past argument
         shift # past value
         ;;
@@ -30,7 +37,7 @@ run_tests(){
 
     set -ex
 
-    BUILD_ARGS=$( format_build_args CACHEBUST=${TEMP} PORT=${APP_PORT} )
+    BUILD_ARGS=$( format_build_args CACHEBUST=${TEMP} APP_PORT=${APP_PORT} APP_NAME=${APP_NAME} )
     build_push_images -repo "${REPOSITORY}-tests" -app-version 1 -test false -docker-file Dockerfile.tests -build-args "${BUILD_ARGS}"
     docker_infra_test
 }

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-. constants.sh
+. ./constants.sh
 
 run_infra_tests(){
     while [[ $# -gt 0 ]]
