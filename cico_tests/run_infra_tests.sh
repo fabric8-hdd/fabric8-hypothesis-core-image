@@ -1,41 +1,7 @@
 #!/bin/bash
 
-. constants.sh
+. ./constants.sh
 
-run_infra_tests(){
-    while [[ $# -gt 0 ]]
-    do
-    key="$1"
-
-    case $key in
-        -npm)
-        NPM_VER="$2"
-        shift # past argument
-        shift # past value
-        ;;
-        -node)
-        NODE_VER="$2"
-        shift # past argument
-        shift # past value
-        ;;
-        -port)
-        PORT="$2"
-        shift # past argument
-        shift # past value
-        ;;
-        *)
-        shift
-        ;;
-    esac
-    done
-
-    #Running the infra tests
-
-    node_infra_test
-    npm_infra_test
-    port_infra_test
-    os_infra_test
-}
 
 #Running the Node infra test
 
@@ -62,7 +28,7 @@ npm_infra_test(){
 #Running the PORT infra test
 
 port_infra_test(){
-    if [ "${PORT}" -eq "${HDD_SUPERVISOR_PORT}" ]; then
+    if [ "${PORT}" -eq "${APP_PORT}" ]; then
         echo "Required PORT is configured"
     else
         echo "PORT test failed"
@@ -98,3 +64,37 @@ os_infra_test(){
         echo "OS version test failed"
     fi
 }
+
+
+
+while [[ $# -gt 0 ]]
+do
+key="$1"
+
+case $key in
+    -npm)
+    NPM_VER="$2"
+    shift # past argument
+    shift # past value
+    ;;
+    -node)
+    NODE_VER="$2"
+    shift # past argument
+    shift # past value
+    ;;
+    -port)
+    PORT="$2"
+    shift # past argument
+    shift # past value
+    ;;
+    *)
+    shift
+    ;;
+esac
+done
+#Running the infra tests
+
+node_infra_test
+npm_infra_test
+port_infra_test
+os_infra_test

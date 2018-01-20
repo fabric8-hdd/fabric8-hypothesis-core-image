@@ -4,7 +4,7 @@ ORGANIZATION?=fabric8-hdd
 DOCKERFILE?=Dockerfile
 DEFAULT_TAG?=latest
 
-.PHONY: all docker-build docker-tag docker-push get-image-tag get-formatted-build-arg get-push-registry get-short-commit-hash
+.PHONY: all docker-build docker-tag docker-push docker-run-infra-tests get-image-tag get-formatted-build-arg get-push-registry get-short-commit-hash
 
 all:
 	npm install --production
@@ -17,6 +17,9 @@ docker-tag:
 
 docker-push:
 	docker push $(PUSH_REGISTRY)/$(ORGANIZATION)/$(REPOSITORY):$(TAG)
+
+docker-run-infra-tests:
+	docker run -ti $(PUSH_REGISTRY)/$(ORGANIZATION)/$(REPOSITORY):$(TAG) cico_tests/run_infra_tests.sh $(PARAMS)
 
 get-image-tag:
     ifdef APP_VERSION

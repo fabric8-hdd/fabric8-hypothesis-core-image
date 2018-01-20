@@ -134,6 +134,39 @@ test_image() {
     make REPOSITORY=$REPOSITORY TAG=$TAG BUILD_ARGS="${BUILD_ARGS}" DOCKERFILE=$DOCKERFILE docker-build
 }
 
+run_infra_test_on_image() {
+    local PARAM
+    local TAG
+    local REPO
+    while [[ $# -gt 0 ]]
+    do
+    key="$1"
+
+    case $key in
+        -param)
+        PARAM="$2"
+        shift # past argument
+        shift # past value
+        ;;
+        -tag)
+        TAG="$2"
+        shift # past argument
+        shift # past value
+        ;;
+        -repo)
+        REPO="$2"
+        shift # past argument
+        shift # past value
+        ;;
+        *)
+        shift
+        ;;
+    esac
+    done
+
+    make REPOSITORY=$REPO TAG=$TAG PARAMS="$PARAM" docker-run-infra-tests
+}
+
 tag_push() {
     # tag_push nodejs 9.3.0_npm_5.6.0 9.3.0_npm_5.6.0
     local REPOSITORY=$1
@@ -161,6 +194,8 @@ build_push_images() {
     local IS_TEST
     local last_succesful_node_version
     local last_succesful_npm_version
+    local PORT
+    local RUN_INFRA_TEST=no
     while [[ $# -gt 0 ]]
     do
     key="$1"
@@ -196,6 +231,16 @@ build_push_images() {
         shift
         shift
         ;;
+        -port)
+        PORT="$2"
+        shift
+        shift
+        ;;
+        -run-infra-tests)
+        RUN_INFRA_TEST="$2"
+        shift
+        shift
+        ;;
         *)
         shift
         ;;
@@ -210,6 +255,7 @@ build_push_images() {
         # If testing enabled, build image only if tests pass
         if [ "$IS_TEST" == "yes" ]; then
             test_image -repo "${REPOSITORY}" -tag "${tag}" -build-args "${build_args}" -docker-file ${DOCKERFILE_TEST}
+            run_infra_test_on_image -repo "${REPOSITORY}-tests" -tag "${tag}" -param "-node ${node_version} -npm ${npm_version} -port ${PORT}"
             if [ $? -eq 0 ]; then
                 last_succesful_node_version=${node_version}
                 last_succesful_npm_version=${npm_version}
@@ -217,11 +263,14 @@ build_push_images() {
         fi
         if [ $? -eq 0 ]; then
             build_image -repo "${REPOSITORY}" -tag "${tag}" -build-args "${build_args}" -docker-file ${DOCKERFILE}
-            tag_push ${REPOSITORY} ${tag} ${tag}
+            if [ "$RUN_INFRA_TEST" == "yes" ]; then
+                run_infra_test_on_image -repo "${REPOSITORY}" -tag "${tag}" -param "-node ${node_version} -npm ${npm_version} -port ${PORT}"
+            fi
             if [ $? -eq 0 ] && [ "$IS_TEST" != "yes" ]; then
                 last_succesful_node_version=${node_version}
                 last_succesful_npm_version=${npm_version}
             fi
+            tag_push ${REPOSITORY} ${tag} ${tag}
         else
             echo "${REPOSITORY} Tests failed for tag ${tAG}"
         fi

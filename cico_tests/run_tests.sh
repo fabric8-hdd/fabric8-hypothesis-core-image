@@ -5,13 +5,29 @@
 
 run_tests(){
     local APP_PORT
+    local APP_NAME
+    local DOCKERFILE=Dockerfile.tests
     while [[ $# -gt 0 ]]
     do
     key="$1"
-
     case $key in
-        -port)
+        -app-version)
+        APP_VERSION="$2"
+        shift
+        shift
+        ;;
+        -app-port)
         APP_PORT="$2" # To hold anything other than node_version and npm_version
+        shift # past argument
+        shift # past value
+        ;;
+        -app-name)
+        APP_NAME="$2" # To hold anything other than node_version and npm_version
+        shift # past argument
+        shift # past value
+        ;;
+        -docker-file)
+        DOCKERFILE="$2" # To hold anything other than node_version and npm_version
         shift # past argument
         shift # past value
         ;;
@@ -19,7 +35,6 @@ run_tests(){
     done
     # run_tests nodejs
     prep_env
-    local REPOSITORY=$1
 
     TEMP=$(date +%s)
 
@@ -30,8 +45,8 @@ run_tests(){
 
     set -ex
 
-    BUILD_ARGS=$( format_build_args CACHEBUST=${TEMP} PORT=${APP_PORT} )
-    build_push_images -repo "${REPOSITORY}-tests" -app-version 1 -test false -docker-file Dockerfile.tests -build-args "${BUILD_ARGS}"
+    BUILD_ARGS=$( format_build_args CACHEBUST=${TEMP} APP_PORT=${APP_PORT} APP_NAME=${APP_NAME} )
+    build_push_images -repo "${APP_NAME}-tests" -app-version ${APP_VERSION} -test no -docker-file ${DOCKERFILE} -build-args "${BUILD_ARGS}" -port "${APP_PORT}" -run-infra-tests yes
     docker_infra_test
 }
 
