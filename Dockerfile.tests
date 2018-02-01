@@ -13,8 +13,6 @@ RUN yum -y install git
 # Install app dependencies
 ADD package.json ./package.json
 ADD package-lock.json ./package-lock.json
-
-# Install app
 RUN npm install
 
 # Bundle app source
