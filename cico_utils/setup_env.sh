@@ -18,19 +18,19 @@ install_app() {
 
 relocate_sources(){
     install_app
-    # Create cico_utils dir in source repo if not exists and copy setup utils from hypothesis-core-image
+    # Create cico_utils dir in source repo if not exists and copy setup utils from fabric8-hypothesis-core-image
     mkdir -p cico_utils
-    cp -r node_modules/hypothesis-core-image/cico_utils/* cico_utils/
-    # Create cico_tests dir in source repo if not exists and copy generic tests from hypothesis-core-image
+    cp -r node_modules/fabric8-hypothesis-core-image/cico_utils/* cico_utils/
+    # Create cico_tests dir in source repo if not exists and copy generic tests from fabric8-hypothesis-core-image
     mkdir -p cico_tests
-    cp -r node_modules/hypothesis-core-image/cico_tests/* cico_tests/
+    cp -r node_modules/fabric8-hypothesis-core-image/cico_tests/* cico_tests/
     # copy constants.sh
-    cp node_modules/hypothesis-core-image/constants.sh .
+    cp node_modules/fabric8-hypothesis-core-image/constants.sh .
     # copy Makefile to here
-    cp node_modules/hypothesis-core-image/Makefile .
+    cp node_modules/fabric8-hypothesis-core-image/Makefile .
     # copy Dockerfile.app to here
-    cp node_modules/hypothesis-core-image/Dockerfile.app Dockerfile.app
-    cp node_modules/hypothesis-core-image/Dockerfile.tests Dockerfile.tests
+    cp node_modules/fabric8-hypothesis-core-image/Dockerfile.app Dockerfile.app
+    cp node_modules/fabric8-hypothesis-core-image/Dockerfile.tests Dockerfile.tests
 }
 
 setup_env() {
