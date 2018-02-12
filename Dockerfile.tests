@@ -1,14 +1,13 @@
 ARG NODE_VERSION=8.9.2
 ARG NPM_VERSION=5.5.0
+ARG APP_REGISTRY="registry.devshift.net/fabric8-hdd"
 
-FROM registry.devshift.net/fabric8-hdd/nodejs:${NODE_VERSION}_npm_${NPM_VERSION}
+FROM ${APP_REGISTRY}/nodejs:${NODE_VERSION}_npm_${NPM_VERSION}
 LABEL maintainer="Anmol Babu <anmolbudugutta@gmail.com>"
 
 # Setup App Dir
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
-
-RUN yum -y install git
 
 # Install app dependencies
 ADD package.json ./package.json
@@ -27,7 +26,7 @@ USER node
 
 ARG APP_PORT=9090
 
-#Injecting environment variable inside container
+# Injecting environment variable inside container
 ENV APP_PORT ${APP_PORT}
 
 # Expose port
@@ -36,12 +35,9 @@ EXPOSE ${APP_PORT}
 # Hack to bust the cache. Refer to run_tests.sh file.
 ARG CACHEBUST=1
 
-#Running the tests
+# Running the tests
 RUN npm test
 
-#Running the infra tests
-ENTRYPOINT ["/bin/bash", "./cico_tests/run_infra_tests.sh"]
-
-# Start app
-CMD [ "npm", "start" ]
+# Running the infra tests
+ENTRYPOINT ["/bin/sh", "./cico_tests/run_infra_tests.sh"]
 

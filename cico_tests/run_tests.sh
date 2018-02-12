@@ -1,7 +1,7 @@
-#!/bin/bash
+#!/bin/sh
 
 . cico_utils/setup_utils.sh
-. constants.sh
+. ./constants.sh
 
 run_tests(){
     local APP_PORT
