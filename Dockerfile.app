@@ -1,10 +1,9 @@
 ARG NODE_VERSION="8.9.2"
 ARG NPM_VERSION="5.5.0"
-FROM registry.devshift.net/fabric8-hdd/nodejs:${NODE_VERSION}_npm_${NPM_VERSION}
-LABEL maintainer="Anmol Babu <anmolbudugutta@gmail.com>"
+ARG APP_REGISTRY="registry.devshift.net/fabric8-hdd"
 
-# Install git for npm to be able to pull dependencies from git
-RUN yum -y install git
+FROM ${APP_REGISTRY}/nodejs:${NODE_VERSION}_npm_${NPM_VERSION}
+LABEL maintainer="Anmol Babu <anmolbudugutta@gmail.com>"
 
 # Install app dependencies
 ADD package.json ./package.json

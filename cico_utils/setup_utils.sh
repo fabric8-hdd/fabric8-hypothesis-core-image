@@ -1,6 +1,6 @@
-#!/bin/bash -ex
+#!/bin/sh -ex
 
-. constants.sh
+. ./constants.sh
 . cico_utils/setup_env.sh
 
 load_jenkins_vars() {

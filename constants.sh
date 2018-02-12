@@ -1,4 +1,4 @@
-#!/bin/bash -ex
+#!/bin/sh -ex
 
 REPOSITORY=nodejs
 
@@ -15,6 +15,7 @@ OS=(
 )
 
 DEFAULT_PORT=9090
+DEFAULT_APP_REGISTRY="registry.centos.org"
 DEFAULT_OS="centos"
 DEFAULT_OS_VERSION="7"
 DEFAULT_NODE_VERSION=9.3.0
