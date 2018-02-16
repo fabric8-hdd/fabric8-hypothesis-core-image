@@ -1,6 +1,6 @@
-PUSH_REGISTRY?=push.registry.devshift.net
-PULL_REGISTRY?=registry.devshift.net
-ORGANIZATION?=fabric8-hdd
+PUSH_REGISTRY?=$$(grep "DEFAULT_PUSH_REGISTRY" constants.sh | cut -d'=' -f 2)
+PULL_REGISTRY?=$$(grep "DEFAULT_PULL_REGISTRY" constants.sh | cut -d'=' -f 2)
+ORGANIZATION?=$$(grep "DEFAULT_ORGANIZATION" constants.sh | cut -d'=' -f 2)
 DOCKERFILE?=Dockerfile
 DEFAULT_TAG?=latest
 
