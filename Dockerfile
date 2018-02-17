@@ -23,3 +23,5 @@ ADD setup_env ./setup_env
 
 # Running the OS wrapper script
 RUN ./os_wrapper.sh -os ${OS_IMG_NAME} -os-version ${OS_IMG_VERSION}
+ADD https://github.com/Yelp/dumb-init/releases/download/v1.1.1/dumb-init_1.1.1_amd64 /usr/local/bin/dumb-init
+RUN chmod +x /usr/local/bin/dumb-init
