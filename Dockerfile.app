@@ -34,4 +34,5 @@ ENV APP_PORT ${APP_PORT}
 EXPOSE ${APP_PORT}
 
 # Start app
-CMD [ "npm", "start" ]
+CMD [ "dumb-init", "npm", "start" ]
+
