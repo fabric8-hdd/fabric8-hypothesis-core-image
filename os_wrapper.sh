@@ -23,10 +23,11 @@ done
 
 OS=$(echo "$OS" | tr '[:upper:]' '[:lower:]')
 
-if [ ${OS} == 'fedora' ]; then
-    . setup_env/fedora.sh
+if [ -f setup_env/${OS}.sh ];
+then
+    ./setup_env/${OS}.sh
+else
+    echo "Unsupported os"
 fi
 
-if [ ${OS} == 'centos' ]; then
-    . setup_env/centos.sh
-fi
+
