@@ -13,11 +13,7 @@ load_jenkins_vars() {
     fi
 }
 
-install_docker() {
-    yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
-    yum -y install docker-ce
-    systemctl start docker
-}
+. cico_utils/prerequisites/${BUILD_MACHINE_OS}.sh
 
 prep_env() {
     prep_base

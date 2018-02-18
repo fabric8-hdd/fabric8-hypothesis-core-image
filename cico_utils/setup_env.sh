@@ -1,7 +1,4 @@
-prep_base() {
-    yum -y update
-    yum -y install yum-utils device-mapper-persistent-data lvm2 git wget
-}
+. cico_utils/prerequisites/${BUILD_MACHINE_OS}.sh
 
 install_node() {
     # install_node 9.3.0 5.6.0
