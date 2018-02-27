@@ -13,7 +13,7 @@ SUPPORTED_NODE_VERSIONS=(
 OS=(
 	"fedora"
 	"centos"
-	"unix"
+	"rhel"
 )
 
 DEFAULT_PORT=9090
@@ -29,7 +29,7 @@ DEFAULT_PULL_REGISTRY=registry.devshift.net
 DEFAULT_ORGANIZATION=fabric8-hdd
 # DEFAULT_OS_REGISTRY=registry.access.redhat.com/rhel7
 DEFAULT_OS_REGISTRY=${DEFAULT_APP_REGISTRY}
-BUILD_MACHINE_OS="centos"
+BUILD_MACHINE_OS=$(echo `cat /etc/*-release | grep -i "^id=" | cut -d'=' -f 2` | tr -d '"' | tr '[:upper:]' '[:lower:]')
 # Expected as ENV vars in build machines
 # SUBSCRIPTION_USERNAME=""
 # SUBSCRIPTION_PASSWORD=""
