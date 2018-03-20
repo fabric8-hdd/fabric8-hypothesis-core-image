@@ -4,12 +4,12 @@
   "description": "Generic build scripts, Dockerfiles etc.. of Hypothesis Driven Development stack reside here",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/fabric8-hdd/fabric8-hypothesis-core-image.git"
+    "url": "git+https://github.com/fabric8-hypothesis/fabric8-hypothesis-core-image.git"
   },
   "author": "Anmol Babu",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/fabric8-hdd/fabric8-hypothesis-core-image/issues"
+    "url": "https://github.com/fabric8-hypothesis/fabric8-hypothesis-core-image/issues"
   },
-  "homepage": "https://github.com/fabric8-hdd/fabric8-hypothesis-core-image#readme"
+  "homepage": "https://github.com/fabric8-hypothesis/fabric8-hypothesis-core-image#readme"
 }

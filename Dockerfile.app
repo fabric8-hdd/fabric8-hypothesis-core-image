@@ -1,6 +1,6 @@
 ARG NODE_VERSION="8.9.2"
 ARG NPM_VERSION="5.5.0"
-ARG APP_REGISTRY="registry.devshift.net/fabric8-hdd"
+ARG APP_REGISTRY="registry.devshift.net/fabric8-hypothesis"
 
 FROM ${APP_REGISTRY}/nodejs:${NODE_VERSION}_npm_${NPM_VERSION}
 LABEL maintainer="Anmol Babu <anmolbudugutta@gmail.com>"
