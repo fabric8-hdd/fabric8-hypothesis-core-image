@@ -26,7 +26,7 @@ DEFAULT_NODE_VERSION=9.3.0
 DEFAULT_NPM_VERSION=5.6.0
 DEFAULT_PUSH_REGISTRY=push.registry.devshift.net
 DEFAULT_PULL_REGISTRY=registry.devshift.net
-DEFAULT_ORGANIZATION=fabric8-hdd
+DEFAULT_ORGANIZATION=fabric8-hypothesis
 # DEFAULT_OS_REGISTRY=registry.access.redhat.com/rhel7
 DEFAULT_OS_REGISTRY=${DEFAULT_APP_REGISTRY}
 BUILD_MACHINE_OS=$(echo `cat /etc/*-release | grep -i "^id=" | cut -d'=' -f 2` | tr -d '"' | tr '[:upper:]' '[:lower:]')
